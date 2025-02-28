@@ -1,0 +1,25 @@
+Private/Public Repository
+
+In case our Github code repository is private, then cloning it on EC2 will fail.
+
+In order to make it work, we will need to provide SSH access to the EC2 instance to login and clone the repo. Follow the steps in Generating SSH Keys to add SSH keys but here is the gist:
+
+First create the SSH keys on EC2:
+
+ls -al ~/.ssh
+ssh-keygen -t rsa -C "your-email@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
+
+Then, add a new SSH Key into github by following the steps on the github website.
+
+Finally, back on the EC2 server, test if SSH access works
+
+ssh -T git@github.com
+
+Now trying cloning it...
+
+git clone git@github.com:gautamarora/todos.git
+
+and it should work!
